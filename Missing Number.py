@@ -1,16 +1,13 @@
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        numList = {}
+        numList = set()
         for i in range(len(nums)):
-            numList[i] = 1
+            numList.add(i)
 
         for num in nums:
             if num in numList:
-                del numList[num]
+                numList.remove(num)
 
-        val = list(numList.keys())
-        if len(val) == 1:
-            return val[0]
-
+        if len(numList) != 0:
+            return list(numList)[0]
         return len(nums)
-        
