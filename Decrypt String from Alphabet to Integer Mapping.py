@@ -8,14 +8,14 @@ class Solution:
             char = chr(ord(char) + 1)
             
         stack = list(s)
-        res = ''
+        res = []
         while stack:
             last = stack.pop()
             if last == '#':
                 sec = stack.pop()
                 first = stack.pop()
-                res = hashmap[first + sec] + res
+                res.append(hashmap[first + sec])
             else:
-                res = hashmap[last] + res
+                res.append(hashmap[last])
 
-        return res
+        return "".join(res[::-1])
