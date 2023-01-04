@@ -16,3 +16,4 @@ class Solution:
             res[ind] = res[ind].rstrip()
 
         return res
+
