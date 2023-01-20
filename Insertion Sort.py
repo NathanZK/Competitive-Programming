@@ -13,21 +13,22 @@ import sys
 #  1. INTEGER n
 #  2. INTEGER_ARRAY arr
 #
-def printList(arr):
+
+def insertionSort1(n, arr):
+    # Write your code here
+    val = arr[n - 1]
+    i = n - 2
+    while i >= 0 and val < arr[i]:
+        arr[i+1] = arr[i]
+        i -= 1
+        printList(arr)
+    arr[i+1] = val
+    printList(arr)
+    
+def printList (arr):
     for i in arr:
         print(i, end = " ")
     print()
-
-def insertionSort1(n, arr):
-    elem = arr[-1]
-    pos = n - 1
-    while elem < arr[pos - 1] and pos > 0:
-        arr[pos] = arr[pos - 1]
-        pos -= 1
-        printList(arr)
-    arr[pos] = elem
-    printList(arr)
- 
 
 if __name__ == '__main__':
     n = int(input().strip())
