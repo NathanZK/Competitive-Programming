@@ -1,11 +1,16 @@
 class Solution:
     def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
-        hashmap = {}
-        temp = sorted(nums)
-        result = [0] * len(nums)
-        for ind, num in enumerate(temp):
-            if num not in hashmap:
-                hashmap[num] = ind
-        for ind, num in enumerate(nums):
-            result[ind] = hashmap[num]
-        return result
+        sortedNums = sorted(nums)
+        indNums = {}
+        for i, n in enumerate(sortedNums):
+            if n not in indNums:
+                indNums[n] = i
+
+        smaller = []
+        for n in nums:
+            smaller.append(indNums[n])
+
+        return smaller
+
+            
+        
