@@ -1,20 +1,27 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        ana = collections.Counter(p)
-        n = len(p)
-        st = collections.Counter(s[0:n])
-        left, right = 0, n - 1
-        res = []
+        countP = Counter(p)
+        countS = Counter(s[:len(p)])
+        left, right = 0, len(p) - 1
+        anagrams = []
         while right < len(s):
-            if ana == st:
-                res.append(left)
-            right += 1
-            if right == len(s):
-                return res
+            if countP == countS:
+                anagrams.append(left)
             
-            if st.get(s[left]) == 1:
-                st.pop(s[left])
+            if right == len(s) - 1:
+                return anagrams
+            right += 1
+            countS[s[right]] = countS.get(s[right], 0) + 1
+            if countS[s[left]] == 1:
+                del countS[s[left]]
             else:
-                st[s[left]] = st.get(s[left]) - 1
+                countS[s[left]] -= 1
             left += 1
-            st[s[right]] = st.get(s[right], 0) + 1
+            
+
+        return anagrams
+            
+
+
+        
+    
