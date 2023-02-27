@@ -1,24 +1,19 @@
 class DataStream:
 
     def __init__(self, value: int, k: int):
-        self.count = 0
         self.value = value
         self.k = k
-        self.d = deque()
-
-    def consec(self, num: int) -> bool:
-        self.d.append(num)
-        if num == self.value:
-            self.count += 1 
-
-        if len(self.d) - 1 == self.k:
-            popped = self.d.popleft()
-            if popped == self.value:
-                self.count -= 1
+        self.queue = deque()
         
-        if self.count == self.k:
-            return True
-        return False
+    def consec(self, num: int) -> bool:
+        self.queue.appendleft(num)
+        if len(self.queue) == self.k+1:
+            self.queue.pop()
+
+        if num != self.value:
+            self.queue = deque()
+        
+        return len(self.queue) == self.k
 
 
 # Your DataStream object will be instantiated and called as such:
