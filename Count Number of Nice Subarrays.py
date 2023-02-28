@@ -10,11 +10,8 @@ class Solution:
                 count += 1
         evens.append(count)
 
-        if k > len(evens) - 1:
-            return 0
-        i = 0
         odds = 0
-        while k + i < len(evens):
-            odds += evens[k + i] * evens[i]
-            i += 1
+        for i in range(len(evens) - k):
+            odds += evens[i] * evens[i+k]
+
         return odds
