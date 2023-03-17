@@ -1,23 +1,34 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def pairSum(self, head):
-        numList = []
-        sum = 0
-        highest = 0
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        twinSum = 0
+        slow, fast = head, head.next
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        list1 = head
+        list2 = self.reverseList(slow.next)
+        slow.next = None
+
+        while list1:
+            twinSum = max(twinSum, list1.val + list2.val)
+            list1 = list1.next
+            list2 = list2.next
+
+        return twinSum
+
+    def reverseList(self, head):
+        prev = None
         while head:
-            numList.append(head.val)
-            head = head.next
-        print(numList)
-        i = 0
-        j = len(numList) - 1
-        while i < j:
-            sum = numList[i] + numList[j]
-            if sum > highest:
-                highest = sum
-            i += 1
-            j -= 1
-        return highest
+            forw = head.next
+            head.next = prev
+            prev = head
+            head = forw
+
+        return prev
