@@ -1,22 +1,28 @@
 class Solution:
     def maximumDetonation(self, bombs: List[List[int]]) -> int:
-        maxBombs = 0
-
         def bombRegion(node, bomb):
             radius = (bomb[1]-node[1])**2 + (bomb[0]-node[0])**2
             return radius <= node[2]**2
 
+        graph = defaultdict(list)
+        maxBombs = 0
+        for i in range(len(bombs)):
+            for j in range(len(bombs)):
+                if i != j and bombRegion(bombs[i], bombs[j]):
+                    graph[i].append(j)
+
         def dfs(index, bombed):
-            bombed[index] = True
+            bombed.add(index)
 
             detonated = 0
-            for i in range(len(bombs)):
-                if not bombed[i] and bombRegion(bombs[index], bombs[i]):
-                    detonated += 1 + dfs(i, bombed)
-                
+            for neighbor in graph[index]:
+                if neighbor not in bombed:
+                    detonated += 1 + dfs(neighbor, bombed)
+
             return detonated
-
-        for i in range(len(bombs)):
-            maxBombs = max(maxBombs, 1 + dfs(i, [False] * len(bombs)))
-
-        return maxBombs
+        
+        keys = list(graph.keys())
+        for key in keys:
+            maxBombs = max(maxBombs, 1 + dfs(key, set()))
+        
+        return max(1, maxBombs)
