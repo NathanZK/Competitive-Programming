@@ -19,7 +19,7 @@ class Solution:
             
         for i in range(V):
             if i not in visited:
-                if dfs(i, set([i]), -1):
+                if dfs(i, set(), -1):
                     return 1
                     
         return 0
