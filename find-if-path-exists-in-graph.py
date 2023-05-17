@@ -1,6 +1,6 @@
 class Solution:
     def __init__(self):
-        self.size = defaultdict(int)
+        self.rep = defaultdict(str)
 
     def representative(self, x):
         parent = x
@@ -17,24 +17,16 @@ class Solution:
         xRep = self.representative(x)
         yRep = self.representative(y)
 
-        if xRep != yRep:
-            if self.size[xRep] > self.size[yRep]:
-                self.rep[yRep] = xRep
-                self.size[xRep] += self.size[yRep]
-            else:
-                self.rep[xRep] = yRep 
-                self.size[yRep] += self.size[xRep]
-
+        self.rep[yRep] = xRep
 
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        self.rep = {i:i for i in range(n)}
-
+        
         if not edges:
             return source == destination
 
-        # for src, des in edges:
-        #     self.rep[src] = src
-        #     self.rep[des] = des
+        for src, des in edges:
+            self.rep[src] = src
+            self.rep[des] = des
 
         for src, des in edges:
             self.union(src, des)
