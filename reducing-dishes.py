@@ -7,12 +7,13 @@ class Solution:
         maxLikeTime = 0
         for i in range(len(satisfaction)):
             likeTime = 0
+
             for j in range(i+1):
-                likeTime += (satisfaction[j]*(i-j+1))
+                likeTime += (satisfaction[j] * (i-j+1))
 
             if likeTime > maxLikeTime:
                 maxLikeTime = likeTime
             else:
-                return maxLikeTime
+                break
 
         return maxLikeTime
