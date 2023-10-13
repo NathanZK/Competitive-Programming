@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def distributeCoins(self, root: Optional[TreeNode]) -> int:
-        minSteps = [0]
+        self.minSteps = 0
 
         def dfs(node):
             if not node:
@@ -15,9 +15,9 @@ class Solution:
             node.val += dfs(node.left)
             node.val += dfs(node.right)
 
-            minSteps[0] += abs(1 - node.val)
+            self.minSteps += abs(1 - node.val)
             
             return (node.val - 1)
 
         dfs(root)
-        return minSteps[0]
+        return self.minSteps
