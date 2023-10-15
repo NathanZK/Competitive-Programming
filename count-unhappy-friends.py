@@ -7,8 +7,10 @@ class Solution:
         
         unhappy = set()
         for i in range(n):
-            pair1 = hashPairs[i]
+            if i in unhappy:
+                continue
 
+            pair1 = hashPairs[i]
             for p1 in preferences[i]:
                 if p1 == pair1:
                     break
