@@ -1,26 +1,23 @@
 class UnionFind:
+
     def __init__(self, s1, s2):
         self.rep = {}
-        for char in s1:
-            self.rep[char] = char
+        for ch in s1:
+            self.rep[ch] = ch
 
-        for char in s2:
-            self.rep[char] = char
+        for ch in s2:
+            self.rep[ch] = ch
 
-    def representative(self, x):
-        parent = x
-        while parent != self.rep[parent]:
-            parent = self.rep[parent]
+    def find(self, x):
+        if x == self.rep[x]:
+            return x
 
-        while x != self.rep[x]:
-            self.rep[x] = parent
-            x = self.rep[x]
-
-        return parent
+        self.rep[x] = self.find(self.rep[x])
+        return self.rep[x]
 
     def union(self, x, y):
-        xRep = self.representative(x)
-        yRep = self.representative(y)
+        xRep = self.find(x)
+        yRep = self.find(y)
 
         self.rep[max(xRep, yRep)] = min(xRep, yRep)
 
@@ -35,10 +32,10 @@ class Solution:
             uf.union(s1[i], s2[i])
 
         smallest = []
-        for char in baseStr:
-            if uf.repExists(char):
-                smallest.append(uf.representative(char))
+        for ch in baseStr:
+            if uf.repExists(ch):
+                smallest.append(uf.find(ch))
             else:
-                smallest.append(char)
+                smallest.append(ch)
 
         return "".join(smallest)
